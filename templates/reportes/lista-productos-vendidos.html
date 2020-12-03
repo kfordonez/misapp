@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-body">
+    <center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+    <h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+    <h4>Lista de Productos mas vendidos en el mes:</h4>
+    <form method="POST">
+        <h5>Bienvenido gerente, {{request.user.username}}</h5>
+        Seleccione una fecha </br>
+        Desde<input type="date" name="desde" value="" style="width:100px" />
+        Hasta<input type="date" name="hasta" value="" style="width:100px" />
+    </br>
+</br>
+        <button type="submit" class="btn btn-success">Listar</button>
+        {% csrf_token %}
+    </form>
+    {% if mensaje %}
+    <div> {{ mensaje }}</div>
+    {% endif %}
+    {% if filtroprovendido %}
+    <table class="table">
+    Fecha: de {{ desde }} a {{ hasta }}   
+         <tbody> 
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad de Productos Vendidos </th>
+                </tr>
+            </thead>
+        <tbody>
+        {% endif %}    
+            {% for productoventas in filtroprovendido %}
+                <tr>
+                    <td>{{ productoventas.producto__nombreProducto }}</td>
+                    <td>{{ productoventas.total }}</td>      
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a type="button" class="btn btn-info" href="{%url 'reporMenuClinica' %}">Regresar</a>
+</div>
+{% endblock %}

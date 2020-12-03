@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="table table-responsive table-hover">
+    <center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+    <h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>    
+    <h4>Lista de Pedidos para Taller</h4>
+    <h5>Bienvenido, user: {{request.user.username}}</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Tipo de Producto</th>
+                <th scope="col">Caracteristica Lejos/Cerca</th>
+                <th scope="col">Caracteristica Ojo Izquierdo/Derecho</th>
+                <th scope="col">Armazon True/False</th>
+                <th scope="col">Estado</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for detallepedido in pedidos %}
+                {% if detallepedido.estado == 'TALLER' or detallepedido.estado == 'FINALIZADO' %}
+            <tr>
+                <td>{{ detallepedido.producto.nombreProducto }}</td>
+                <td>{{ detallepedido.producto.tipoProducto }}</td>
+                <td>{{ detallepedido.producto.caract_lente_distancia }}</td>
+                <td>{{ detallepedido.producto.caract_lente_direccion }}</td>
+                <td>{{ detallepedido.producto.armazon  }}</td>
+                <td>{{ detallepedido.estado  }}</td>
+                <td><a type="button" class="btn btn-warning" href="/appClinica/pedido-cambiarTaller/{{ detallepedido.id}}">Cambiar Estado</a>
+                </td>
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

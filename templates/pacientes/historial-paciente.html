@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<div class="card-body">
+    {% for nombrepa in nombrepaciente %}
+    <h4>Historial Medico del Paciente: {{nombrepa.nombrePaciente}} {{nombrepa.apellidoPaciente}}</h4>
+    {% endfor %}
+        <h5>Bienvenido doctor, {{request.user.username}}</h5>
+        {% csrf_token %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Historial Medico</th>
+                <th scope="col">Historial Medico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for historial in historialpac %}
+            <tr>
+                <td>{{ historial.fecha_historial_medico }}</td>     
+                <td>{{ historial.observaciones }}</td>                               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{%url 'paciente-lista' %}" class="btn btn-info" role="button">Regresar a Lista de Pacientes</a>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<h6 align= "right" ><a href="{% url 'logout' %}">Desconectarse</a></h6>
+
+<div class="card-body">
+    <h4>REPORTES GERENCIA</h4>
+    <a type="button" class="btn btn-info" href="{%url 'lista-pacientes-asisturnos' %}">Pacientes asistieron a turnos</a> <br></br>
+    <a type="button" class="btn btn-info" href="{%url 'lista-pacientes-noasisturnos' %}">Pacientes que no asistieron a los turnos</a> <br></br>
+    <a type="button" class="btn btn-info" href="{%url 'lista-pedidos-pacientes' %}">Pedidos de pacientes</a> <br></br>
+    <a type="button" class="btn btn-info" href="{%url 'lista-productos-vendidos' %}">Productos mas vendidos</a> <br></br>
+    <a type="button" class="btn btn-info" href="{%url 'lista-ventastotal-mes' %}">Ventas totales por mes</a> <br></br>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-body">
+    <center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<h6 align= "right" ><a href="{% url 'logout' %}">Desconectarse</a></h6>
+
+    <h4>Lista de Pacientes que no asistieron a los turnos</h4>
+    <form method="POST">
+        Seleccione una fecha </br>
+        Dede<input type="date" name="desde" value="" style="width:100px" />
+        Hasta<input type="date" name="hasta" value="" style="width:100px" />
+        <button type="submit" class="btn btn-success">Listar</button>
+        {% csrf_token %}
+    </form>
+    {% if mensaje %}
+    <div> {{ mensaje }}</div>
+    {% endif %}
+    {% if filtro_asisturnospac %}
+    <div class="card-body">
+        <table class="table">
+    Fecha: de {{ desde }} a {{ hasta }}      
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Medico</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% endif %}
+            {% for pacienteasisturno in filtro_asisturnospac %}
+            <tr>
+                <td>{{ pacienteasisturno.fechaTurno }}</td>
+                <td>{{ pacienteasisturno.horaTurno }}</td>
+                <td>{{ pacienteasisturno.paciente }}</td>
+                <td>{{ pacienteasisturno.medico}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <a type="button" class="btn btn-info" href="{%url 'reporMenuClinica' %}">Regresar</a>
+</div>
+{% endblock %}

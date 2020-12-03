@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<div class="card-body">
+    <h4>Lista de Turnos</h4>
+    <h6>Bienvenido doctor, {{request.user.username}}</h6>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Medico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for turno in turnos %}
+            <tr>
+                <td>{{ turno.fechaTurno }}</td>
+                <td>{{ turno.horaTurno }}</td>
+                <td>{{ turno.paciente_id }}</td>
+                <td>{{ turno.medico_id }}</td>
+                <td><a type="button" class="btn btn-warning" href="/appClinica/turno-modificar/{{ turno.id }}">Modificar</a>
+                    <a type="button" class="btn btn-danger" href="/appClinica/turno-eliminar/{{ turno.id }}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a type="button" class="btn btn-success" href="{%url 'turno-agregar' %}">Agregar Turno</a>
+</div>
+{% endblock %}

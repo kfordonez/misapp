@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<h6 align= "right" ><a href="{% url 'logout' %}">Desconectarse</a></h6>
+
+<div class="card-body">
+    <h5>Agregar Nuevo Pedido</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <a type="button" class="btn btn-danger" href="{%url 'turno-lista' %}">Cancel</a>
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+</div>
+{% endblock %}

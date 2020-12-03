@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-body">
+    <center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<h6 align= "right" ><a href="{% url 'logout' %}">Desconectarse</a></h6>
+
+    <h4>Lista de Pacientes</h4>
+    <form method="POST">
+        Seleccione una fecha </br>
+        Dede<input type="date" name="desde" value="" style="width:100px" />
+        Hasta<input type="date" name="hasta" value="" style="width:100px" />
+        <input type="hidden" name="username" value= "{{request.user.username}}">
+        <button type="submit" class="btn btn-success">Listar</button>
+        {% csrf_token %}
+    </form>
+    {% if mensaje %}
+    <div> {{ mensaje }}</div>
+    {% endif %}
+    {% if filtro %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Medico</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% endif %}
+            {% for pacienteturno in filtro %}
+            <tr>
+                <td>{{ pacienteturno.fechaTurno }}</td>
+                <td>{{ pacienteturno.horaTurno }}</td>
+                <td>{{ pacienteturno.paciente_id }}</td>
+                <td>{{ pacienteturno.medico_id }}</td>
+                  
+                <td>
+                    <a type="button" class="btn btn-success" href="/appClinica/historial-agregar/{{ pacienteturno.paciente_id }}">Agregar Historial Medico</a>
+                    <a type="button" class="btn btn-info" href="/appClinica/historial-paciente/{{ pacienteturno.paciente_id }}">Ver Historial Medico del Paciente</a>
+                </td>        
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a type="button" class="btn btn-success" href="{%url 'turno-agregar' %}">Agregar Turno</a>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+<div class="card-body">
+    {% for filpaciente in filtropaciente %}
+        <h5>Agregar Observación en historial medico del Paciente: {{filpaciente.paciente}}</h5>
+        {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="observaciones" value= "">
+        <input type="date" name="fecha_historial_medico" value= "">
+        {{ form.as_p }}
+        <a type="button" class="btn btn-danger" href="{%url 'paciente-lista' %}">Cancel</a>
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+</div>
+{% endblock %}

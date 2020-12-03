@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-body">
+    <center><h3>CLINICA DE OPTOMETRÍA</h3></center>
+<h6 align= "right" >Bienvenido, user: {{request.user.username}}</h6>
+    <h4>Lista de pedidos de los Pacientes</h4>
+    <form method="POST">
+        Seleccione una fecha </br>
+        Dede<input type="date" name="desde" value="" style="width:100px" />
+        Hasta<input type="date" name="hasta" value="" style="width:100px" />
+    </br>
+</br>
+        <button type="submit" class="btn btn-success">Listar</button>
+        {% csrf_token %}
+    </form>
+    {% if mensaje %}
+    <div> {{ mensaje }}</div>
+    {% endif %}
+    {% if filtropedidospac %}
+    <table class="table">
+    Fecha: de {{ desde }} a {{ hasta }}      
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Producto Comprado</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% endif %}
+            {% for pedidospac in filtropedidospac %}
+            <tr>
+                <td>{{ pedidospac.paciente }}</td>
+                <td>{{ pedidospac.producto }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a type="button" class="btn btn-info" href="{%url 'reporMenuClinica' %}">Regresar</a>
+</div>
+{% endblock %}
